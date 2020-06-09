@@ -1,0 +1,12 @@
+version: '2.2'
+
+services:
+
+  postgres:
+    image: postgres:9.6
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=authsample
+    ports:
+      - 5432:5432
