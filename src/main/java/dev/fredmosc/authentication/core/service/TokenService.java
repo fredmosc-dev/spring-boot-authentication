@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.Date;
 
 @Service
@@ -18,7 +19,7 @@ public class TokenService {
     private final Logger logger = LoggerFactory.getLogger(TokenService.class);
 
     @Value("${jwt.expiration}")
-    private String expiration;
+    private Long expiration;
 
     @Value("${jwt.secret}")
     private String secret;
@@ -26,13 +27,23 @@ public class TokenService {
     public String generateToken(Authentication authentication) {
         Credentials logged = (Credentials) authentication.getPrincipal();
         Date today = new Date();
-        Date expirationDate = new Date(today.getTime() + Long.parseLong(expiration));
+
+        Instant expirationTime = Instant.now()
+                .plusSeconds(expiration);
+
+        Date expirationDate = Date.from(expirationTime);
+
+        Claims claims = Jwts.claims().setSubject(logged.getUsername());
+        claims.put("roles", logged.getAuthorities());
+        claims.put("userId", logged.getId());
+
         return Jwts.builder()
                 .setIssuer("API Authentication")
                 .setSubject(logged.getId().toString())
                 .setIssuedAt(today)
                 .setExpiration(expirationDate)
                 .signWith(SignatureAlgorithm.HS256, secret)
+                .setClaims(claims)
                 .compact();
     }
 
