@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:5432/${DB_DATABASE:authsample}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_USERPASS:postgres}
+    initialization-mode: always
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: loggers
