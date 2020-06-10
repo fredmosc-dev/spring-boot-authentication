@@ -3,25 +3,11 @@ server:
   servlet:
     context-path: /api
 
-spring:
-  datasource:
-    url: jdbc:postgresql://${DB_HOST:localhost}:5432/${DB_DATABASE:authsample}
-    username: ${DB_USERNAME:postgres}
-    password: ${DB_USERPASS:postgres}
-
-  jpa:
-    hibernate:
-      ddl-auto: update
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-    show-sql: true
-
 jwt:
   secret: mztKH2Kgx0taIS7ZzPTh60559eCZ3HbK
+  expiration: 86400000
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: loggers
+spring:
+  profiles:
+    include: security
+    active: ${API_ENV:development}
