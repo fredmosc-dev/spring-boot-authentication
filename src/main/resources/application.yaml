@@ -5,9 +5,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://${DB_HOST}:5432/${DB_DATABASE}:authsample
-    username: ${DB_USERNAME}:postgres
-    password: ${DB_USERPASS}:postgres
+    url: jdbc:postgresql://${DB_HOST:localhost}:5432/${DB_DATABASE:authsample}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_USERPASS:postgres}
 
   jpa:
     hibernate:
