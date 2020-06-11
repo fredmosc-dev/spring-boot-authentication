@@ -39,7 +39,8 @@ public class TokenService {
 
         return Jwts.builder()
                 .setIssuer("API Authentication")
-                .setSubject(logged.getId().toString())
+                .setId(logged.getId().toString())
+                .setSubject(logged.getUsername())
                 .setIssuedAt(today)
                 .setExpiration(expirationDate)
                 .signWith(SignatureAlgorithm.HS256, secret)
@@ -59,6 +60,6 @@ public class TokenService {
 
     public Long getCredentialsId(String token) {
         Claims body = Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
-        return Long.valueOf(body.getSubject());
+        return Long.valueOf(String.valueOf(body.get("userId")));
     }
 }
