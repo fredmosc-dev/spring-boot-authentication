@@ -35,6 +35,7 @@ public class Credentials implements UserDetails {
         Set<Role> defaultRole = Collections.singleton(Role.USER);
         this.username = userSignUp.getUsername();
         this.password = userSignUp.getPassword();
+        this.email = userSignUp.getEmail();
         this.roles = defaultRole;
     }
 

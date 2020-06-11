@@ -18,7 +18,7 @@ public class User {
 
     private String cpf;
 
-    @OneToOne
+    @ManyToOne
     private Credentials credentials;
 
     public User(UserSignUp userSignUp, Credentials credentials) {
