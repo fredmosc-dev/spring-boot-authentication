@@ -1,10 +1,12 @@
 package dev.fredmosc.authentication.credentials.model;
 
+import dev.fredmosc.authentication.user.model.UserSignUp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -25,6 +27,16 @@ public class Credentials implements UserDetails {
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private Set<Role> roles;
+
+    public Credentials() {
+    }
+
+    public Credentials(UserSignUp userSignUp) {
+        Set<Role> defaultRole = Collections.singleton(Role.USER);
+        this.username = userSignUp.getUsername();
+        this.password = userSignUp.getPassword();
+        this.roles = defaultRole;
+    }
 
     public Long getId() {
         return id;

@@ -1,4 +1,4 @@
-package dev.fredmosc.authentication.user;
+package dev.fredmosc.authentication.user.model;
 
 import dev.fredmosc.authentication.credentials.model.Credentials;
 
@@ -21,7 +21,11 @@ public class User {
     @OneToOne
     private Credentials credentials;
 
-    public User() {
+    public User(UserSignUp userSignUp, Credentials credentials) {
+        this.name = userSignUp.getName();
+        this.whatsapp = userSignUp.getWhatsapp();
+        this.cpf = userSignUp.getCpf();
+        this.credentials = credentials;
     }
 
     public Long getId() {
