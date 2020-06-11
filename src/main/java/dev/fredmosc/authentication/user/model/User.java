@@ -21,6 +21,9 @@ public class User {
     @ManyToOne
     private Credentials credentials;
 
+    public User() {
+    }
+
     public User(UserSignUp userSignUp, Credentials credentials) {
         this.name = userSignUp.getName();
         this.whatsapp = userSignUp.getWhatsapp();

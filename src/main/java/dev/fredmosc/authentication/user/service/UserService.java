@@ -13,6 +13,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -49,5 +51,15 @@ public class UserService {
         User savedUser = userRepository.save(user);
         UserDto userDto = new UserDto(savedUser);
         return userDto;
+    }
+
+    public List<UserDto> findAll() {
+        List<User> allUsers = userRepository.findAll();
+        List<UserDto> users = new ArrayList<>();
+        allUsers.stream().forEach(user -> {
+            UserDto userDto = new UserDto(user);
+            users.add(userDto);
+        });
+        return users;
     }
 }
